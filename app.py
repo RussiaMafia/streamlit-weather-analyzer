@@ -166,10 +166,10 @@ if uploaded_file:
                             st.error(f"⚠️ АНОМАЛИЯ! Выход за пределы нормы ({lower:.1f}...{upper:.1f}°C)")
                     else:
                         st.warning("Недостаточно данных для этого сезона.")
-                elif response and response.status_code == 401:
-                    st.error("❌ Неверный API-ключ. Проверьте его на https://openweathermap.org/")
+                elif response.status_code == 401:
+                    st.error(f"Ошибка авторизации: {response.text}")
                 else:
-                    st.error("Не удалось получить данные. Проверьте город и интернет.")
+                    st.error(f"Ошибка при получении данных: {response.status_code} - {response.reason}")
     except Exception as e:
         st.error(f"Ошибка при обработке файла: {e}")
 else:
